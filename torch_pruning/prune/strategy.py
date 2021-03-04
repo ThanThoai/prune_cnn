@@ -43,6 +43,5 @@ class L2Strategy(LNStrategy):
     def __init__(self):
         super(L2Strategy, self).__init__(p=2)
         
-class 
         
         
