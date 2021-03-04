@@ -108,7 +108,9 @@ def main():
     train_loader, test_loader = get_dataloader()
     list_model = ['ResNet18', 'ResNet34', 'ResNet50', 'ResNet101', 'ResNet152']
     
-    for model_name in list_model:
+    for i, model_name in enumerate(list_model):
+        if i > 2:
+            args.batch_size = 32
         logs(f"Model name: {model_name}")
         model = getattr(resnet, model_name)(num_classes = 10)
         logs(f"Train model with {args.total_epochs} epochs")
