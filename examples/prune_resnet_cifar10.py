@@ -113,9 +113,9 @@ def main():
         model = getattr(resnet, model_name)(num_classes = 10)
         logs(f"Train model with {args.total_epochs} epochs")
         train_model(model, model_name, train_loader, test_loader, epochs = args.total_epochs)
-        macs, params = get_model_complexity_info(model, (3, 32, 32), as_strings = True, print_per_layer_stat = True, verbose = True)
-        logs('{:<30}  {:<8}'.format('Computational complexity: ', macs))
-        logs('{:<30}  {:<8}'.format('Numper of parameters: ', params))
+        # macs, params = get_model_complexity_info(model, (3, 32, 32), as_strings = True, print_per_layer_stat = True, verbose = True)
+        # logs('{:<30}  {:<8}'.format('Computational complexity: ', macs))
+        # logs('{:<30}  {:<8}'.format('Numper of parameters: ', params))
         for i in range(args.prune):
             if i == 0:
                 model = torch.load(f"Resnet_train_{model_name}.pth")
@@ -126,9 +126,9 @@ def main():
             params = sum([np.prod(p.size()) for p in model.parameters()])
             logs("Number of Parameters: %.1fM"%(params/1e6))
             train_model(model, model_name, train_loader, test_loader, epochs = args.epoch_prune, prune = True)
-            macs, params = get_model_complexity_info(model, (3, 32, 32), as_strings = True, print_per_layer_stat = True, verbose = True)
-            logs('{:<30}  {:<8}'.format('Computational complexity: ', macs))
-            logs('{:<30}  {:<8}'.format('Numper of parameters: ', params))
+            # macs, params = get_model_complexity_info(model, (3, 32, 32), as_strings = True, print_per_layer_stat = True, verbose = True)
+            # logs('{:<30}  {:<8}'.format('Computational complexity: ', macs))
+            # logs('{:<30}  {:<8}'.format('Numper of parameters: ', params))
             torch.save(model, f"Resnet_prune_{model_name}_{i}.pth")
         
 
