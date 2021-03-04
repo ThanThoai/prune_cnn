@@ -71,18 +71,15 @@ def train_model(model, model_name, train_loader, test_loader, epochs, prune=Fals
             loss.backward()
             optimizer.step()
             if i%10==0 and args.verbose:
-                print("Epoch %d/%d, iter %d/%d, loss=%.4f"%(epoch, epochs, i, len(train_loader), loss.item()))
                 logs("Epoch %d/%d, iter %d/%d, loss=%.4f"%(epoch, epochs, i, len(train_loader), loss.item()))
         model.eval()
         acc = eval(model, test_loader)
-        print("Epoch %d/%d, Acc=%.4f"%(epoch, epochs, acc))
         logs("Epoch %d/%d, Acc=%.4f"%(epoch, epochs, acc))
         if best_acc < acc:
             best_acc = acc
             if not prune:
                 torch.save(model, f'Resnet_train_{model_name}.pth')
         scheduler.step()
-    print("Best Acc=%.4f"%(best_acc))
     logs("Best Acc=%.4f"%(best_acc))
     
     
