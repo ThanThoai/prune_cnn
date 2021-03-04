@@ -104,7 +104,7 @@ def prune_model(model, prune_prob = 0.1):
 
 def logs(str):
     print(str)
-    with open("logs.txt", "w") as f:
+    with open("logs.txt", "a") as f:
         f.write(str + '\n')
 
 def main():
